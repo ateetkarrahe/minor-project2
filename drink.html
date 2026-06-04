@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Menu | CampusEats</title>
+
+    <style>
+        /* -------- GLOBAL -------- */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        /* -------- HEADER -------- */
+        header {
+            background-color: #ff6f00;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* -------- SECTION -------- */
+        .menu-section {
+            padding: 30px;
+        }
+
+        .category-title {
+            color: #ff6f00;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff6f00;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* -------- GRID -------- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* -------- CARD -------- */
+        .menu-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.03);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 15px;
+        }
+
+        .menu-info h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .menu-info p {
+            font-size: 14px;
+            color: #555;
+            margin: 8px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #ff6f00;
+        }
+
+        /* -------- BUTTON -------- */
+        .add-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* -------- FOOTER -------- */
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🍽️ Drinks </h1>
+        <p>Fresh food from your campus canteen</p>
+    </header>
+
+    <!-- SNACKS -->
+    <section class="menu-section">
+        <h2 class="category-title">Snacks</h2>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/826b46d4a6279b25c61954b904478de0
+" alt="Cocacola">
+                <div class="menu-info">
+                    <h3>Cocacola</h3>
+                    <p class="price">₹60</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/x6kbfk1ne1udfxmmkma4"
+                    alt="thumsup">
+                <div class="menu-info">
+                    <h3>thumsup</h3>
+
+                    <p class="price">₹60</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/FOOD_CATALOG/IMAGES/CMS/2024/5/15/e55c98fd-63b1-465d-ac8f-cbddff020c17_62384ee0-1c37-4fbd-9f6a-b5f350567cda.jpg"
+                    alt="Sandwich">
+                <div class="menu-info">
+                    <h3>Pepsi</h3>
+
+                    <p class="price">₹60</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+    <footer>
+        © 2025 CampusEats | College Project
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+
+</body>
+
+</html>

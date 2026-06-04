@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Lunchtime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 420px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .login-header h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #ff6f00;
+        }
+
+        .form-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            color: #ff6f00;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .form-tab.active {
+            background: #ff6f00;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6f00;
+            box-shadow: 0 0 0 3px rgba(255, 111, 0, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 111, 0, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message,
+        .success-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #ff6f00;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .secret-key-note {
+            background: #fff8e1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon">🔐</div>
+            <h1>Admin Portal</h1>
+            <p id="headerSubtext">Access the admin dashboard</p>
+        </div>
+
+        <div class="form-tabs">
+            <button class="form-tab active" onclick="showLogin()">Login</button>
+            <button class="form-tab" onclick="showRegister()">Register</button>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@cafeteria.com" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-btn" id="loginBtn">Login to Dashboard</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="hidden">
+            <div class="secret-key-note">
+                ⚠️ Admin registration requires a secret key. Contact super admin if you don't have it.
+            </div>
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email Address</label>
+                <input type="email" id="regEmail" placeholder="admin@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="regPhone">Phone Number</label>
+                <input type="tel" id="regPhone" placeholder="9999999999" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="Min 6 characters" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="regAdminKey">Admin Secret Key</label>
+                <input type="password" id="regAdminKey" placeholder="Enter admin secret key" required>
+            </div>
+            <button type="submit" class="submit-btn" id="registerBtn">Create Admin Account</button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Website</a>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const tabs = document.querySelectorAll('.form-tab');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.API?.getUser();
+            if (user && user.role === 'admin') window.location.href = 'admin-dashboard.html';
+
+            // Check for error parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('error') === 'access_denied') {
+                showError('Access denied. Admin privileges required. Please login with an admin account.');
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        function showLogin() {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+            tabs[0].classList.add('active');
+            tabs[1].classList.remove('active');
+            document.getElementById('headerSubtext').textContent = 'Access the admin dashboard';
+            hideMessages();
+        }
+
+        function showRegister() {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            tabs[0].classList.remove('active');
+            tabs[1].classList.add('active');
+            document.getElementById('headerSubtext').textContent = 'Create a new admin account';
+            hideMessages();
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showError(msg) {
+            document.getElementById('errorMessage').textContent = msg;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showSuccess(msg) {
+            document.getElementById('successMessage').textContent = msg;
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            hideMessages();
+            btn.disabled = true;
+            btn.textContent = 'Logging in...';
+
+            try {
+                const response = await window.API.auth.login(
+                    document.getElementById('loginEmail').value,
+                    document.getElementById('loginPassword').value
+                );
+                if (response.success && response.user.role === 'admin') {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    showError('Access denied. Admin privileges required.');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                }
+            } catch (error) {
+                showError(error.message || 'Login failed.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Login to Dashboard';
+            }
+        });
+
+        // Register
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('registerBtn');
+            hideMessages();
+            btn.disabled = true;
+            btn.textContent = 'Creating account...';
+
+            try {
+                const response = await fetch('http://localhost:5010/api/auth/register-admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('regName').value,
+                        email: document.getElementById('regEmail').value,
+                        phone: document.getElementById('regPhone').value,
+                        password: document.getElementById('regPassword').value,
+                        adminKey: document.getElementById('regAdminKey').value
+                    })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('Admin account created! Redirecting...');
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    setTimeout(() => window.location.href = 'admin-dashboard.html', 1500);
+                } else {
+                    showError(data.message || 'Registration failed.');
+                }
+            } catch (error) {
+                showError(error.message || 'Registration failed.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Create Admin Account';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Canteen Section | CampusEats</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Header */
+header {
+  background-color: #ff6f00;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+/* Section */
+.canteen-section {
+  padding: 30px;
+}
+
+/* Card Layout */
+.canteen-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Left Content */
+.canteen-info {
+  max-width: 70%;
+}
+
+.canteen-info h2 {
+  color: #ff6f00;
+  margin-bottom: 10px;
+}
+
+.canteen-info p {
+  margin: 6px 0;
+  color: #444;
+}
+
+/* Status Badge */
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: green;
+  color: white;
+  font-size: 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Button */
+.view-btn {
+  background-color: #ff6f00;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏫 Canteen Section</h1>
+  <p>Select your campus canteen</p>
+</header>
+
+<section class="canteen-section">
+
+  <!-- Engineering Canteen -->
+  <div class="canteen-card">
+    <div class="canteen-info">
+      <h2> TRUBA Engineering Canteen</h2>
+      <p>📍 Location: Engineering Block</p>
+      <p>🍔 Popular Items: Burger, Samosa, Cold Drink</p>
+      <p>⏰ Timings: 9:00 AM – 5:30 PM</p>
+      <span class="status">Open</span>
+    </div>
+
+    <button class="view-btn">View Menu</button>
+  </div>
+
+  <!-- Commerce Canteen -->
+  <div class="canteen-card">
+    <div class="canteen-info">
+      <h2> TRUBA Commerce Canteen</h2>
+      <p>📍 Location: Commerce Block</p>
+      <p>🍕 Popular Items: Pizza, Sandwich, Coffee</p>
+      <p>⏰ Timings: 10:00 AM – 4:30 PM</p>
+      <span class="status">Open</span>
+    </div>
+
+    <button class="view-btn">View Menu</button>
+  </div>
+
+</section>
+
+<footer>
+  © 2025 CampusEats | College Project
+</footer>
+
+</body>
+</html>

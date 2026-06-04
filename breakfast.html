@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Menu | CampusEats</title>
+
+    <style>
+        /* -------- GLOBAL -------- */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        /* -------- HEADER -------- */
+        header {
+            background-color: #ff6f00;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* -------- SECTION -------- */
+        .menu-section {
+            padding: 30px;
+        }
+
+        .category-title {
+            color: #ff6f00;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff6f00;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* -------- GRID -------- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* -------- CARD -------- */
+        .menu-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.03);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 15px;
+        }
+
+        .menu-info h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .menu-info p {
+            font-size: 14px;
+            color: #555;
+            margin: 8px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #ff6f00;
+        }
+
+        /* -------- BUTTON -------- */
+        .add-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* -------- FOOTER -------- */
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🍽️ Breakfast </h1>
+        <p>Fresh food from your campus canteen</p>
+    </header>
+
+    <!-- SNACKS -->
+    <section class="menu-section">
+        <h2 class="category-title">Breakfast</h2>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/FOOD_CATALOG/IMAGES/CMS/2025/9/20/eccb9924-a6d9-4b56-88a3-c03402652efa_3600e0ee-ce9c-4681-95da-fcd435508cdb.jpg
+
+" alt="Samosa">
+                <div class="menu-info">
+                    <h3>Samosa</h3>
+                    <p class="price">₹20</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/FOOD_CATALOG/IMAGES/CMS/2025/11/15/9474c84b-4ae8-4abc-b12e-a4fd5c790f19_59f34d32-8b08-467c-a716-1ce1fae93a77.jpg
+
+
+" alt="Kachori">
+                <div class="menu-info">
+                    <h3>Kachori</h3>
+
+                    <p class="price">₹20</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="
+
+
+https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/FOOD_CATALOG/IMAGES/CMS/2025/9/3/12350093-9d5d-449d-a70f-8f42424fcc09_4a0fe5de-94cd-42ba-93cf-648f58c6649b.jpg"
+                    alt="Poha">
+                <div class="menu-info">
+                    <h3>Poha</h3>
+
+                    <p class="price">₹20</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/da7154fd97b3d4382e4ac67f31e035b0
+
+
+" alt="Chai/tea">
+                <div class="menu-info">
+                    <h3>Chai/tea</h3>
+
+                    <p class="price">₹20</p>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+    <footer>
+        © 2025 CampusEats | College Project
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+
+</body>
+
+</html>
