@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders | CampusEats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6f00, #ff8f00);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .orders-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .user-info {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .user-info h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .user-info p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+
+        .logout-btn {
+            padding: 10px 25px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            border-color: #ff6f00;
+        }
+
+        .tab.active {
+            background: #ff6f00;
+            color: white;
+            border-color: #ff6f00;
+        }
+
+        /* Orders List */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #fafafa;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-number {
+            font-family: monospace;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .order-date {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .order-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-confirmed {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-preparing {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+
+        .status-ready {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-delivered {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .status-cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .status-failed {
+            background: #ffcdd2;
+            color: #b71c1c;
+        }
+
+        .order-body {
+            padding: 20px;
+        }
+
+        .order-items {
+            margin-bottom: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: #555;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .detail-item {
+            font-size: 14px;
+        }
+
+        .detail-item .label {
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .detail-item .value {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .cancel-btn {
+            padding: 8px 20px;
+            background: #fff;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .cancel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Empty State */
+        .empty-orders {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty-orders .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .empty-orders p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .empty-orders a {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #ff6f00, #ff8f00);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f0f0f0;
+            border-top-color: #ff6f00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ETA Timer */
+        .eta-timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #4CAF50;
+        }
+
+        .eta-timer .icon {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📦 My Orders</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cart.html">Cart</a>
+        </div>
+    </header>
+
+    <div class="orders-container">
+        <div class="user-info" id="user-info">
+            <div>
+                <h2 id="user-name">Loading...</h2>
+                <p id="user-email"></p>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-filter="all" onclick="filterOrders('all', this)">All Orders</div>
+            <div class="tab" data-filter="active" onclick="filterOrders('active', this)">Active</div>
+            <div class="tab" data-filter="delivered" onclick="filterOrders('delivered', this)">Delivered</div>
+            <div class="tab" data-filter="cancelled" onclick="filterOrders('cancelled', this)">Cancelled</div>
+            <div class="tab" data-filter="failed" onclick="filterOrders('failed', this)">Failed</div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading your orders...</p>
+        </div>
+
+        <div class="orders-list" id="orders-list" style="display: none;"></div>
+
+        <div class="empty-orders" id="empty-orders" style="display: none;">
+            <div class="icon">📋</div>
+            <p>No orders yet</p>
+            <a href="index.html">Browse Menu</a>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 CampusEats | College Cafeteria
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        let allOrders = [];
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!window.API || !window.API.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load user info
+            const user = window.API.getUser();
+            if (user) {
+                document.getElementById('user-name').textContent = `Hi, ${user.name}! 👋`;
+                document.getElementById('user-email').textContent = user.email;
+            }
+
+            // Load orders
+            await loadOrders();
+        });
+
+        async function loadOrders() {
+            const loading = document.getElementById('loading');
+            const ordersList = document.getElementById('orders-list');
+            const emptyOrders = document.getElementById('empty-orders');
+
+            try {
+                const response = await window.API.orders.getAll();
+                allOrders = response.data;
+
+                loading.style.display = 'none';
+
+                if (allOrders.length === 0) {
+                    emptyOrders.style.display = 'block';
+                } else {
+                    ordersList.style.display = 'flex';
+                    renderOrders();
+                }
+            } catch (error) {
+                loading.innerHTML = `<p>Error loading orders. <a href="javascript:location.reload()">Retry</a></p>`;
+            }
+        }
+
+        function filterOrders(filter, element) {
+            currentFilter = filter;
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+
+            renderOrders();
+        }
+
+        function renderOrders() {
+            const ordersList = document.getElementById('orders-list');
+            const emptyOrders = document.getElementById('empty-orders');
+
+            let filteredOrders = allOrders;
+
+            if (currentFilter === 'active') {
+                filteredOrders = allOrders.filter(o => ['pending', 'confirmed', 'preparing', 'ready'].includes(o.status));
+            } else if (currentFilter === 'delivered') {
+                filteredOrders = allOrders.filter(o => o.status === 'delivered');
+            } else if (currentFilter === 'cancelled') {
+                filteredOrders = allOrders.filter(o => o.status === 'cancelled');
+            } else if (currentFilter === 'failed') {
+                filteredOrders = allOrders.filter(o => o.status === 'failed');
+            }
+
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = `
+        <div class="empty-orders">
+          <div class="icon">📋</div>
+          <p>No ${currentFilter === 'all' ? '' : currentFilter} orders</p>
+        </div>
+      `;
+                return;
+            }
+
+            ordersList.innerHTML = filteredOrders.map(order => `
+      <div class="order-card">
+        <div class="order-header">
+          <div>
+            <div class="order-number">${order.orderNumber}</div>
+            <div class="order-date">${formatDate(order.createdAt)}</div>
+          </div>
+          <span class="order-status status-${order.status}">${formatStatus(order.status)}</span>
+        </div>
+        
+        <div class="order-body">
+          <div class="order-items">
+            ${order.items.map(item => `
+              <div class="order-item">
+                <span>${item.name} × ${item.quantity}</span>
+                <span>₹${item.price * item.quantity}</span>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="order-details">
+            <div class="detail-item">
+              <div class="label">📍 Delivery Location</div>
+              <div class="value">${order.deliveryLocation}</div>
+            </div>
+            <div class="detail-item">
+              <div class="label">💳 Payment</div>
+              <div class="value">${formatPayment(order.paymentMethod)} - ${order.paymentStatus}</div>
+            </div>
+            ${['confirmed', 'preparing', 'ready'].includes(order.status) ? `
+              <div class="detail-item">
+                <div class="label">⏱️ Estimated Delivery</div>
+                <div class="value eta-timer">
+                  <span class="icon">🚚</span>
+                  <span>${formatETA(order.estimatedDelivery)}</span>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div class="order-footer">
+          <div class="order-total">Total: ₹${order.totalAmount}</div>
+          ${['pending', 'confirmed'].includes(order.status) ? `
+            <button class="cancel-btn" onclick="cancelOrder('${order._id}')">Cancel Order</button>
+          ` : ''}
+        </div>
+      </div>
+    `).join('');
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatStatus(status) {
+            const statuses = {
+                'pending': '⏳ Pending',
+                'confirmed': '✓ Confirmed',
+                'preparing': '👨‍🍳 Preparing',
+                'ready': '📦 Ready',
+                'delivered': '✅ Delivered',
+                'cancelled': '❌ Cancelled',
+                'failed': '❌ Failed'
+            };
+            return statuses[status] || status;
+        }
+
+        function formatPayment(method) {
+            const methods = {
+                'cod': 'Cash on Delivery',
+                'upi': 'UPI',
+                'card': 'Card'
+            };
+            return methods[method] || method;
+        }
+
+        function formatETA(dateStr) {
+            if (!dateStr) return '~30 mins';
+            const now = new Date();
+            const eta = new Date(dateStr);
+            const diff = eta - now;
+
+            if (diff <= 0) return 'Arriving soon!';
+
+            const mins = Math.ceil(diff / 60000);
+            return `~${mins} mins`;
+        }
+
+        async function cancelOrder(orderId) {
+            if (!confirm('Are you sure you want to cancel this order?')) return;
+
+            try {
+                await window.API.orders.cancel(orderId);
+                window.CartManager.showToast('Order cancelled successfully', 'success');
+                await loadOrders();
+            } catch (error) {
+                window.CartManager.showToast(error.message || 'Failed to cancel order', 'error');
+            }
+        }
+
+        function logout() {
+            window.API.auth.logout();
+        }
+
+
+    </script>
+
+</body>
+
+</html>

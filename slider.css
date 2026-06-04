@@ -1,0 +1,26 @@
+#outerbox
+{
+
+}
+#sliderbox{
+    position: relative;
+    width: 500px;
+    animation-name: slide ;
+    animation-duration: 5s;
+
+}
+#sliderbox img
+{
+    float: left;
+}
+@keyframes slide 
+{
+    from
+    {
+        left: 0px;}
+        
+            to
+            {
+                left:-500;
+        }
+    }
